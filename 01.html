@@ -14,7 +14,8 @@
 //飞机的实例
 var Plan = function() {
   //各种动作，暂时先这么放着。将来也许还会扩展或者改变结构
-  this.action = {
+  var _this = this;
+  this.move = {
     left: function() {
       console.log('move to left')
     },
@@ -28,9 +29,12 @@ var Plan = function() {
       console.log('move to down')
     },
     space: function() {
-      console.log('biu biu biu');
+      _this.attack();
     }
   };
+};
+Plan.prototype.attack = function() {
+  console.log('biu biu biu');
 };
 
 var myPlan = (function() {
@@ -57,7 +61,7 @@ var keycode = {
 //写几个监听事件
 document.onkeydown = function(e) {
   var act = keycode[e.keyCode];
-  if (typeof plan1.action[act] === 'function') {
+  if (typeof plan1.move[act] === 'function') {
     plan1.move[act]();
   }
 }
