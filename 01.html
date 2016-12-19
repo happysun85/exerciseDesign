@@ -6,7 +6,61 @@
 </head>
 <body>
 <script>
+/**
+ * 实在想不出一个合适的应用场景，那么就先做一个飞机的实例化吧，
+ * 没准将来就能做出一个HTML5的飞机游戏呢。
+ *                                  ----万丈高楼平地起。
+ */
+//飞机的实例
+var Plan = function() {
+  //各种动作，暂时先这么放着。将来也许还会扩展或者改变结构
+  this.action = {
+    left: function() {
+      console.log('move to left')
+    },
+    right: function() {
+      console.log('move to right')
+    },
+    up: function() {
+      console.log('move to up')
+    },
+    down: function() {
+      console.log('move to down')
+    },
+    space: function() {
+      console.log('biu biu biu');
+    }
+  };
+};
 
+var myPlan = (function() {
+  var planInstance;
+  return function() {
+    if (!planInstance) {
+      planInstance = new Plan();
+    }
+    return planInstance;
+  }
+})();
+var plan1 = new myPlan();
+//var plan2 = new myPlan();
+//plan==plan2    返回true
+
+//keycode
+var keycode = {
+  '38': 'up',
+  '40': 'down',
+  '37': 'left',
+  '39': 'right',
+  '32': 'space'  //空格=>攻击
+};
+//写几个监听事件
+document.onkeydown = function(e) {
+  var act = keycode[e.keyCode];
+  if (typeof plan1.action[act] === 'function') {
+    plan1.move[act]();
+  }
+}
 </script>
 </body>
 </html>
